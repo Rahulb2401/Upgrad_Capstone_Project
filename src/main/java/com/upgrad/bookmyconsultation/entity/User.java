@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
-
+import javax.persistence.PrimaryKeyJoinColumn;
 
 
 //Mark it with Data, Entity, Builder, NoArgsConstructor, AllArgsConstructor
@@ -22,3 +21,24 @@ import javax.persistence.Id;
 	//create createdDate of type String
 	//create salt of type String
 	//all the mentioned members must be private
+
+@Data
+@Builder
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+public class User {
+    String firstName;
+    String lastName;
+    String dob;
+    String mobile;
+
+    @Id
+    String emailId;
+
+    String password;
+    String createdDate;
+    String salt;
+
+
+}
