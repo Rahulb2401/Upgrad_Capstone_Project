@@ -10,7 +10,9 @@ import com.upgrad.bookmyconsultation.util.ValidationUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.Optional;
 
+import javax.validation.constraints.Null;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +24,8 @@ public class AppointmentService {
 	
 	//mark it autowired
 	//create an instance of AppointmentRepository called appointmentRepository
+	@Autowired
+	AppointmentRepository appointmentRepository;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -34,6 +38,18 @@ public class AppointmentService {
 		//if the appointment exists throw the SlotUnavailableException
 		//save the appointment details to the database
 		//return the appointment id
+
+	public String appointment (Appointment paramAppointment){
+
+SlotUnavailableException slotUnavailableException;
+InvalidInputException invalidInputException;
+
+if(ValidationUtils.validate(getAppointment()).isPresent()){
+
+}
+
+
+	}
 	
 	
 
@@ -43,7 +59,23 @@ public class AppointmentService {
 		//if the appointment exists return the appointment
 		//else throw ResourceUnAvailableException
 		//tip: use Optional.ofNullable(). Use orElseThrow() method when Optional.ofNullable() throws NULL
-	
+
+	public Appointment getAppointment(String appointmentId){
+		Optional<Appointment> appointmentDetails = Optional.ofNullable((Appointment) appointmentRepository.findByUserId(appointmentId));
+		if(appointmentDetails.isPresent()){
+
+			Appointment appointmentInfo =appointmentDetails.get();
+			appointmentInfo.setAppointmentId(appointmentId);
+			appointmentRepository.save(appointmentInfo);
+			return	appointmentInfo;
+		}
+
+		else{
+			throw new ResourceUnAvailableException();
+		}
+	}
+
+
 	public List<Appointment> getAppointmentsForUser(String userId) {
 		return appointmentRepository.findByUserId(userId);
 	}
