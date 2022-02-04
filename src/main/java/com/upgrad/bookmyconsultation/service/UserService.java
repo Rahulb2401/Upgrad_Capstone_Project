@@ -42,6 +42,9 @@ public class UserService {
 	//create a method named getAllUsers that returns a List of type User
 		//return all the users from the database
 
+
+	//Created getAllusers function
+
 	public List<User> getAllUsers(){
 
 		return userRepository.findAll();
