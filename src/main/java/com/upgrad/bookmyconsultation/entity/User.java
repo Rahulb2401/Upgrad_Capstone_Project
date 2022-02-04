@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.PrimaryKeyJoinColumn;
+
 
 
 //Mark it with Data, Entity, Builder, NoArgsConstructor, AllArgsConstructor
@@ -28,17 +28,17 @@ import javax.persistence.PrimaryKeyJoinColumn;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-    String firstName;
-    String lastName;
-    String dob;
+    private String firstName;
+    private String lastName;
+    private String dob;
     String mobile;
 
     @Id
-    String emailId;
+    private String emailId;
 
-    String password;
-    String createdDate;
-    String salt;
+    private String password;
+    private String createdDate;
+    private String salt;
 
 
 }
