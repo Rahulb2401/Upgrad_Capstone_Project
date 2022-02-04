@@ -39,16 +39,22 @@ public class AppointmentService {
 		//save the appointment details to the database
 		//return the appointment id
 
-	public String appointment (Appointment paramAppointment){
+	public String appointment (Appointment paramAppointment) throws InvalidInputException{
 
-SlotUnavailableException slotUnavailableException;
 InvalidInputException invalidInputException;
+SlotUnavailableException slotUnavailableException = new SlotUnavailableException();
 
-if(ValidationUtils.validate(getAppointment()).isPresent()){
+ValidationUtils.validate(paramAppointment);
 
-}
+Optional<Appointment> existingAppointment = Optional.ofNullable(appointmentRepository.findByDoctorIdAndTimeSlotAndAppointmentDate(paramAppointment.getDoctorId(),
+		paramAppointment.getTimeSlot(), paramAppointment.getAppointmentDate()));
 
 
+		if(paramAppointment.equals(existingAppointment))
+          throw new SlotUnavailableException();
+
+		appointmentRepository.save(paramAppointment);
+		return paramAppointment.getAppointmentId();
 	}
 	
 	
@@ -60,10 +66,12 @@ if(ValidationUtils.validate(getAppointment()).isPresent()){
 		//else throw ResourceUnAvailableException
 		//tip: use Optional.ofNullable(). Use orElseThrow() method when Optional.ofNullable() throws NULL
 
+
+	//My code completed
 	public Appointment getAppointment(String appointmentId){
 		Optional<Appointment> appointmentDetails = Optional.ofNullable((Appointment) appointmentRepository.findByUserId(appointmentId));
-		if(appointmentDetails.isPresent()){
 
+		if(appointmentDetails.isPresent()){
 			Appointment appointmentInfo =appointmentDetails.get();
 			appointmentInfo.setAppointmentId(appointmentId);
 			appointmentRepository.save(appointmentInfo);
