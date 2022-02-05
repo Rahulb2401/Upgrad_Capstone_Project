@@ -14,45 +14,45 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/appointments")
 public class AppointmentController {
 
-	@Autowired
-	private AppointmentService appointmentService;
+    @Autowired
+    private AppointmentService appointmentService;
 
-	AppointmentRepository appointmentRepository;
+    AppointmentRepository appointmentRepository;
 
-	//create a method post method named bookAppointment with return type ReponseEntity
-		//method has paramter of type Appointment, use RequestBody Annotation for mapping
-	
-		//save the appointment details to the database and save the response from the method used
-		//return http response using ResponseEntity
+    //create a method post method named bookAppointment with return type ReponseEntity
+    //method has paramter of type Appointment, use RequestBody Annotation for mapping
 
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity bookAppointment(@RequestBody Appointment reqAppointment) throws InvalidInputException {
+    //save the appointment details to the database and save the response from the method used
+    //return http response using ResponseEntity
 
-String savedAppointment = appointmentService.appointment(reqAppointment);
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity bookAppointment(@RequestBody Appointment reqAppointment) throws InvalidInputException {
 
-
-		return new ResponseEntity(savedAppointment, HttpStatus.CREATED);
-	}
-	
-	
-	
-	
-	//create a get method named getAppointment with return type as ResponseEntity
-		//method has appointmentId of type String. Use PathVariable annotation to identity appointment using the parameter defined
-		
-		//get the appointment details using the appointmentId
-		//save the response
-		//return the response as an http response
+        String savedAppointment = appointmentService.appointment(reqAppointment);
 
 
-	//My code compeleted
-	@GetMapping("/appointmentsId/{appointmentId}")
-	public ResponseEntity getAppointment(@PathVariable String appointmentId){
+//Need to save the appointment details to DB.
 
-		Appointment appointmentDetails = appointmentService.getAppointment(appointmentId);
+        return new ResponseEntity(savedAppointment, HttpStatus.CREATED);
+    }
 
-		appointmentRepository.save(appointmentDetails);
-		return new ResponseEntity(appointmentDetails, HttpStatus.CREATED);
-	}
+
+    //create a get method named getAppointment with return type as ResponseEntity
+    //method has appointmentId of type String. Use PathVariable annotation to identity appointment using the parameter defined
+
+    //get the appointment details using the appointmentId
+    //save the response
+    //return the response as an http response
+
+
+    //My code compeleted
+    @GetMapping("/appointmentsId/{appointmentId}")
+    public ResponseEntity getAppointment(@PathVariable String appointmentId) {
+
+        Appointment appointmentDetails = appointmentService.getAppointment(appointmentId);
+
+        appointmentRepository.save(appointmentDetails);
+        return new ResponseEntity(appointmentDetails, HttpStatus.CREATED);
+    }
 
 }
