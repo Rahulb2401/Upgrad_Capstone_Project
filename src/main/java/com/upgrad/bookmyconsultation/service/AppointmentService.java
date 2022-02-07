@@ -41,7 +41,7 @@ public class AppointmentService {
 
     public String appointment(Appointment paramAppointment) throws InvalidInputException {
 
-        InvalidInputException invalidInputException;
+
         SlotUnavailableException slotUnavailableException = new SlotUnavailableException();
 
         ValidationUtils.validate(paramAppointment);
