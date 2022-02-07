@@ -20,35 +20,39 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 public class UserAdminController {
 
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private UserService userService;
 
-	@Autowired
-	private AppointmentService appointmentService;
-
-
-	@GetMapping(path = "/{id}")
-	public ResponseEntity<User> getUser(@RequestHeader("authorization") String accessToken,
-	                                    @PathVariable("id") final String userUuid) {
-		final User User = userService.getUser(userUuid);
-		return ResponseEntity.ok(User);
-	}
-	
-	//create a post method named createUser with return type as ResponseEntity
-		//define the method parameter user of type User. Set it final. Use @RequestBody for mapping.
-		//declare InvalidInputException using throws keyword
-		
-		//register the user
-	
-		//return http response with status set to OK
-	
-	
+    @Autowired
+    private AppointmentService appointmentService;
 
 
-	@GetMapping("/{userId}/appointments")
-	public ResponseEntity getAppointmentForUser(@PathVariable("userId") String userId) {
-		return ResponseEntity.ok(appointmentService.getAppointmentsForUser(userId));
-	}
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<User> getUser(@RequestHeader("authorization") String accessToken,
+                                        @PathVariable("id") final String userUuid) {
+        final User User = userService.getUser(userUuid);
+        return ResponseEntity.ok(User);
+    }
+
+    //create a post method named createUser with return type as ResponseEntity
+    //define the method parameter user of type User. Set it final. Use @RequestBody for mapping.
+    //declare InvalidInputException using throws keyword
+
+    //register the user
+
+    //return http response with status set to OK
+
+    @PostMapping(value = "/register")
+    public ResponseEntity createUser(@RequestBody final User user) throws InvalidInputException {
+        return ResponseEntity.ok(userService.register(user));
+
+    }
+
+
+    @GetMapping("/{userId}/appointments")
+    public ResponseEntity getAppointmentForUser(@PathVariable("userId") String userId) {
+        return ResponseEntity.ok(appointmentService.getAppointmentsForUser(userId));
+    }
 
 
 }
