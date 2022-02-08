@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 
 @Service
@@ -37,7 +38,7 @@ public class RatingsService {
 
         Rating updateRating = new Rating();
 
-        updateRating.setId(rating.getId());
+        updateRating.setId(UUID.randomUUID().toString());
         updateRating.setRating(rating.getRating());
 
         ratingsRepository.save(updateRating);
@@ -60,10 +61,10 @@ public class RatingsService {
                 sum += map.get(j);
             }
         }
-
+        System.out.println("Sum of Rating : "+ sum);
 
         avg = Integer.parseInt(String.valueOf(sum / map.size()));
-
+        System.out.println("Average :" + avg);
         updateRating.setRating(avg);
 
 
