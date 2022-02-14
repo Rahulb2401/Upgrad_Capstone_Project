@@ -30,9 +30,6 @@ public class AppointmentController {
 
         String savedAppointment = appointmentService.appointment(reqAppointment);
 
-
-//Need to save the appointment details to DB.
-
         return new ResponseEntity(savedAppointment, HttpStatus.CREATED);
     }
 
@@ -44,8 +41,6 @@ public class AppointmentController {
     //save the response
     //return the response as an http response
 
-
-    //My code compeleted
     @GetMapping("/appointmentsId/{appointmentId}")
     public ResponseEntity getAppointment(@PathVariable String appointmentId) {
 
