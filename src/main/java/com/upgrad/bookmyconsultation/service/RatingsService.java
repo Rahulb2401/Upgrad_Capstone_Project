@@ -40,6 +40,9 @@ public class RatingsService {
 
         updateRating.setId(UUID.randomUUID().toString());
         updateRating.setRating(rating.getRating());
+        updateRating.setDoctorId(rating.getDoctorId());
+        updateRating.setAppointmentId(rating.getAppointmentId());
+        updateRating.setComments(rating.getComments());
 
         ratingsRepository.save(updateRating);
 
