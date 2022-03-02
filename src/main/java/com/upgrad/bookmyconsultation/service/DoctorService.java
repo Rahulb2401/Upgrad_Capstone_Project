@@ -52,12 +52,6 @@ public class DoctorService {
 
         ValidationUtils.validate(doctor);
 
-
-        if (doctor.getAddress() == null) {
-
-            return null; //need to update
-        }
-
         Doctor doctorInfo = new Doctor();
 
         doctorInfo.setId(UUID.randomUUID().toString());
