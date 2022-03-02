@@ -59,6 +59,7 @@ public class DoctorService {
         doctorInfo.setLastName(doctor.getLastName());
         doctorInfo.setEmailId(doctor.getEmailId());
         doctorInfo.setSpeciality(doctor.getSpeciality());
+        doctorInfo.setDob(doctor.getDob());
         doctorInfo.setMobile(doctor.getMobile());
         doctorInfo.setPan(doctor.getPan());
         doctorInfo.setHighestQualification(doctor.getHighestQualification());
