@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -47,34 +46,12 @@ public class RatingsService {
         ratingsRepository.save(updateRating);
 
 
-        List findRating = ratingsRepository.findByDoctorId(rating.getDoctorId());
+        Doctor doctorInfo = doctorRepository.findById(rating.getDoctorId()).get();
 
-        Integer sum = 0;
-        Integer avg = 0;
+        doctorInfo.setRating((rating.getRating() + doctorInfo.getRating())/2);
 
-        HashMap<Integer, Integer> map = new HashMap<>();
+        System.out.println("DoctorInfor : "+ doctorInfo);
 
-        for (int i = 0; i < findRating.size(); i++) {
-            map.put(i, (Integer) findRating.get(i));
-        }
-
-
-        for (int j = 0; j < map.size(); j++) {
-            if (map.containsKey(j)) {
-                sum += map.get(j);
-            }
-        }
-        System.out.println("Sum of Rating : "+ sum);
-
-        avg = Integer.parseInt(String.valueOf(sum / map.size()));
-        System.out.println("Average :" + avg);
-        updateRating.setRating(avg);
-
-
-        Doctor doctorInfo = new Doctor();
-
-        doctorInfo.setId(rating.getDoctorId());
-        doctorInfo.setRating(Double.parseDouble(String.valueOf(avg)));
         doctorRepository.save(doctorInfo);
 
 
